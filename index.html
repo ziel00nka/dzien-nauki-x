@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <title>Fiszeki</title>
+  <style>
+    body {
+        font-family: Arial Narrow, sans-serif;
+        color: #2d305c;
+        font-size: 25px;
+        margin: 0;
+        padding: 0;
+        text-shadow: 1px 2px rgb(198, 210, 255);
+        transform: rotateY(360deg);
+    }
+
+    .kontener {
+        max-width: 300px;
+        margin: 50px auto;
+        text-align: center;
+        
+    }
+
+    .fiszka {
+        border: 10px solid #094c79;
+        border-radius: 20px;
+        padding: 20px;
+        margin-bottom: 20px;
+        background-color: #4d86c7;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+        height: 400px;
+        display: flex; 
+        flex-direction: column; 
+        justify-content: center; 
+        align-items: center; 
+        box-shadow: 10px 4px rgb(32, 48, 99);
+        transition: 1s;
+    
+       
+        
+        
+    }
+   
+ 
+    .fiszka:hover {
+        transform: scale(1.05);
+        
+    }
+
+    .fiszka .pytanie {
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .fiszka .odpowiedz {
+        display: none;
+        transform: scale(1.05);
+    }
+
+    .fiszka.pokaz-odpowiedz .pytanie {
+        display: none;
+        transform: scale(1.05);
+        transition: transform 0.3s ease;
+      
+    }
+
+    .fiszka.pokaz-odpowiedz .odpowiedz {
+        display: block;
+        transform: scale(1.05);
+        transition: transform 0.3s ease;
+      
+        
+        
+    }
+    .przycisk{
+      background-color: #4d86c7;
+                color: #094c79;
+                font-size: 24px;
+                padding: 10px;
+                text-decoration: none;
+                transition-duration: 0.4s;
+                border: 1px solid rgb(32, 48, 99);
+                text-transform: uppercase;
+                border-radius: 20px;
+                font-family: Arial Narrow, sans-serif;
+                
+    }
+    .przycisk:hover{
+                background-color: rgb(48, 94, 134);
+                color: #4d86c7;
+                border: 1px solid #4d86c7;
+            }
+    
+  
+  </style>
+</head>
+<body bgcolor="#7490b1">
+  <div class="kontener">
+    <h1>Fiszki naukowe</h1>
+    <div id="kontener-fiszek"></div>
+    <div id="kontener-fiszek"></div>
+  </div>
+  <center><h1>Licznik punktów-za kazda dobra odpowiedz dodaj sobie punkt:)</h1>
+
+
+<button class="przycisk"id="dodajPunkt">Dodaj punkt</button>
+<button class="przycisk"id="resetuj">Resetuj licznik</button><p>Liczba punktów: 
+<span id="liczbaPunktow">0</span></p>
+</center>
+
+
+
+  <script>
+    // Pobierz elementy HTML
+  const buttonDodajPunkt = document.getElementById('dodajPunkt');
+  const buttonResetuj = document.getElementById('resetuj');
+  const spanLiczbaPunktow = document.getElementById('liczbaPunktow');
+
+  // Inicjalizuj licznik punktów
+  let liczbaPunktow = 0;
+
+  // Funkcja dodająca punkt
+  function dodajPunkt() {
+    liczbaPunktow++;
+    spanLiczbaPunktow.textContent = liczbaPunktow;
+  }
+
+  // Funkcja resetująca licznik
+  function resetujLicznik() {
+    liczbaPunktow = 0;
+    spanLiczbaPunktow.textContent = liczbaPunktow;
+  }
+
+  // Nasłuchuj kliknięcia na przyciskach
+  buttonDodajPunkt.addEventListener('click', dodajPunkt);
+  buttonResetuj.addEventListener('click', resetujLicznik);
+
+
+
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const kontenerFiszek = document.getElementById('kontener-fiszek');
+      let fiszki_teraz = 0;
+      let mix = [];
+      const fiszki = [
+        { pytanie: 'Co to jest liczba pierwsza?', odpowiedz: 'Liczba pierwsza to liczba naturalna większa od 1, która ma dokładnie dwa dzielniki: 1 i samą siebie.' },
+        { pytanie: 'Co to jest erozja?', odpowiedz: 'Erozja to proces ścierania, transportowania i osadzania materiału skalnego przez wodę, wiatr lub lodowce.' },
+        { pytanie: 'Kim był Kopernik?', odpowiedz: 'Astronomem który odkrył teorie heliocentyczna' },
+        { pytanie: 'Co to jest galaktyka?', odpowiedz: 'Galaktyka to olbrzymie skupisko gwiazd, pyłu, gazów i ciemnej materii, związane grawitacyjnie. Nasza Galaktyka nazywana jest Drogą Mleczną.' },
+        { pytanie: 'Co to jest atom?', odpowiedz: 'Atom jest najmniejszą jednostką chemiczną, która nadal zachowuje właściwości pierwiastka chemicznego. Składa się z jądra, w którym znajdują się protony i neutrony, otoczonego przez elektrony.' },
+        { pytanie: 'Co to jest zasada zachowania energii?', odpowiedz: 'Zasada zachowania energii mówi, że w izolowanym układzie suma energii (w różnych jej formach) pozostaje stała, tj. energia nie może być ani stworzona, ani zniszczona, tylko przekształcana z jednej formy na inną.' },
+        { pytanie: 'Co to jest fotosynteza?', odpowiedz: 'Fotosynteza to proces, w którym rośliny, glony i niektóre bakterie przekształcają światło słoneczne, węglowodany i wodę w tlen i glukozę.' },
+        { pytanie: 'Co to jest liczba trygonometryczna?', odpowiedz: 'Liczba trygonometryczna to liczba zespolona, która może być reprezentowana jako suma albo różnica dwóch liczb rzeczywistych, z których jedna jest rzeczywistą, a druga urojoną.' },
+        { pytanie: 'Jak powstają wulkany?', odpowiedz: 'Wulkany powstają w wyniku wydobywania się lawy, gazów i innych materiałów z wnętrza Ziemi na jej powierzchnię przez szczeliny w skorupie ziemskiej.' },
+        { pytanie: 'Co to jest czarna dziura?', odpowiedz: 'Czarna dziura to obszar przestrzeni, w którym grawitacja jest na tyle silna, że żadna cząstka, nawet światło, nie może się z niego wydostać.' },
+        { pytanie: 'Jakie są podstawowe rodzaje wiązań chemicznych?', odpowiedz: ' Podstawowe rodzaje wiązań chemicznych to wiązania jonowe, kowalencyjne i metaliczne.' },
+        { pytanie: 'Co to jest fala dźwiękowa?', odpowiedz: 'Fala dźwiękowa to mechaniczna fala rozchodząca się poprzez medium, takie jak powietrze, wibracje cząsteczek, które są przetwarzane przez ucho w dźwięk.' },
+      
+      
+      ];
+
+      function przemieszaj() {
+        mix = fiszki.slice().sort(() => Math.random() - 0.5);
+      }
+
+      function next() {
+        const fiszka = mix[fiszki_teraz];
+        kontenerFiszek.innerHTML = `
+          <div class="fiszka">
+            <div class="pytanie">${fiszka.pytanie}</div>
+            <div class="back">
+            <div class="odpowiedz">Odpowiedź:<br>${fiszka.odpowiedz}</div></div>
+          </div>
+        `;
+        fiszki_teraz = (fiszki_teraz + 1) % mix.length;
+      }
+
+      kontenerFiszek.addEventListener('click', function() {
+        const fiszka = kontenerFiszek.querySelector('.fiszka');
+        if (fiszka.classList.contains('pokaz-odpowiedz')) {
+          next();
+       
+          
+        } else {
+          fiszka.classList.add('pokaz-odpowiedz');
+          
+        }
+      });
+
+      przemieszaj();
+      next();
+    }); 
+    
+  </script>
+</body>
+</html>
